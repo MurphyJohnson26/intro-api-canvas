@@ -4,31 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <title>Intro Canvas</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            max-width: 100%;
+        }
+    </style>
 </head>
-<body class="bd-light">
+<body class="bg-light">
 
     <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <!-- Card con sombra y borde gris claro -->
-            <div class="card shadow-lg border border-light">
-                <div class="card-header text-center bg-primary text-white">
-                    <h5 class="m-0">Dibujo en Canvas</h5>
-                </div>
-                <div class="card-body text-center">
-                    <!-- Canvas con un tamaño adecuado -->
-                    <canvas id="canvas" width="300" height="300"></canvas>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm border border-light">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h5 class="m-0">Dibujo en Canvas</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <canvas id="canvas" width="300" height="300"></canvas>
+                        <ul class="list-group mt-3" id="shape-list">
+                            <li class="list-group-item text-center">
+                                <button class="btn btn-sm btn-outline-primary" onclick="drawRectangle()">Rectángulo</button>
+                            </li>
+                            <li class="list-group-item text-center">
+                                <button class="btn btn-sm btn-outline-primary" onclick="drawTriangle()">Triángulo</button>
+                            </li>
+                            <li class="list-group-item text-center">
+                                <button class="btn btn-sm btn-outline-primary" onclick="drawSmileyFace()">Cara Feliz</button>
+                            </li>
+                            <li class="list-group-item text-center">
+                                <button class="btn btn-sm btn-outline-primary" onclick="drawArcs()">Arcos</button>
+                            </li>
+                            <li class="list-group-item text-center">
+                                <button class="btn btn-sm btn-outline-primary" onclick="drawBezierCurves()">Curvas Bézier</button>
+                            </li>
+                            <li class="list-group-item text-center">
+                                <button class="btn btn-sm btn-outline-primary" onclick="drawQuadraticCurves()">Curvas Cuadráticas</button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-    <script src="main.js"></script>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawRectangle() {
+            clearCanvas();
+            ctx.fillStyle = "blue";
+            ctx.fillRect(50, 50, 200, 100);
+        }
+
+        function drawTriangle() {
+            clearCanvas();
+            ctx.beginPath();
+            ctx.moveTo(150, 50);
+            ctx.lineTo(50, 250);
+            ctx.lineTo(250, 250);
+            ctx.closePath();
+            ctx.fillStyle = "green";
+            ctx.fill();
+        }
+
+        function drawSmileyFace() {
+            clearCanvas();
+            ctx.beginPath();
+            ctx.arc(150, 150, 50, 0, Math.PI * 2);
+            ctx.fillStyle = "yellow";
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(130, 140, 5, 0, Math.PI * 2);
+            ctx.arc(170, 140, 5, 0, Math.PI * 2);
+            ctx.fillStyle = "black";
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(150, 160, 20, 0, Math.PI);
+            ctx.stroke();
+        }
+
+        function drawArcs() {
+            clearCanvas();
+            ctx.beginPath();
+            ctx.arc(150, 150, 80, Math.PI * 0.2, Math.PI * 1.8);
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 4;
+            ctx.stroke();
+        }
+
+        function drawBezierCurves() {
+            clearCanvas();
+            ctx.beginPath();
+            ctx.moveTo(50, 150);
+            ctx.bezierCurveTo(100, 50, 200, 50, 250, 150);
+            ctx.strokeStyle = "blue";
+            ctx.lineWidth = 3;
+            ctx.stroke();
+        }
+
+        function drawQuadraticCurves() {
+            clearCanvas();
+            ctx.beginPath();
+            ctx.moveTo(50, 200);
+            ctx.quadraticCurveTo(150, 50, 250, 200);
+            ctx.strokeStyle = "purple";
+            ctx.lineWidth = 3;
+            ctx.stroke();
+        }
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-    
 </body>
 </html>
